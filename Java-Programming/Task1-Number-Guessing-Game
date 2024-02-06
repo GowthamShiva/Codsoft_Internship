@@ -1,0 +1,52 @@
+import java.util.Random;
+import java.util.Scanner;
+
+public class NumberGuessingGame {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Random random = new Random();
+        int lowerlimit = 1;
+        int upperlimit = 100;
+        int totalScore = 0;
+        int roundsPlayed = 0;
+        while (true) {
+            int targetno = random.nextInt(upperlimit - lowerlimit + 1) + lowerlimit;
+            int maxtries = 5;
+            int tries = 0;
+            System.out.println("!~Guess the number between " + lowerlimit + " and " + upperlimit + "~!");
+            System.out.println();
+            System.out.println("-> Enter your guess:");
+            while (tries < maxtries) {
+                int userinput = sc.nextInt();
+                if (userinput == targetno) {
+                    System.out.println("Bravo! We knew you could do it!");
+                    System.out.println("Congratulations! You guessed the correct number " + targetno +
+                            " in " + (tries + 1) + " attempts.");
+                    totalScore++;
+                    break;
+                } 
+                else if (userinput < targetno) {
+                    System.out.println("Too low! Try again.");
+                } 
+                else {
+                    System.out.println("Too high! Try again.");
+                }
+
+                tries++;
+            }
+            if (tries == maxtries) {
+                System.out.println("Sorry, you've reached the maximum number of attempts. The correct number was " + targetno + ".");
+            }
+            roundsPlayed++;
+
+            System.out.println("Do you want to play again? (yes/no):");
+            String playAgain = sc.next().toLowerCase();
+            if (!playAgain.equals("yes")) {
+                break;
+            }
+        }
+        System.out.println("\nRounds played: " + roundsPlayed);
+        System.out.println("Total score: " + totalScore);
+        sc.close();
+    }
+}
